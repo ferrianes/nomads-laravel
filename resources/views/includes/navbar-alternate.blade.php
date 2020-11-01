@@ -11,7 +11,7 @@
                 <span class="text-muted">
                     | &nbsp; Beyond the explorer of the world
                 </span>
-        </li>
+            </li>
         </ul>
     </nav>
 </div>

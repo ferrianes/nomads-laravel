@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('title')
-    NOMADS
-@endsection
+@section('title', 'NOMADS')
 
 @section('content')
     <!-- Header -->

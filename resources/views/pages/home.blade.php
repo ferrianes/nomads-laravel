@@ -62,7 +62,7 @@
                             <div class="travel-country">INDONESIA</div>
                             <div class="travel-location">TANAH LOT, BALI</div>
                             <div class="travel-button mt-auto">
-                                <a href="details.html" class="btn btn-travel-details px-4">
+                                <a href="{{ route('detail') }}" class="btn btn-travel-details px-4">
                                     View Details
                                 </a>
                             </div>
@@ -73,7 +73,7 @@
                             <div class="travel-country">INDONESIA</div>
                             <div class="travel-location">BROMO, EAST JAVA</div>
                             <div class="travel-button mt-auto">
-                                <a href="details.html" class="btn btn-travel-details px-4">
+                                <a href="{{ route('detail') }}" class="btn btn-travel-details px-4">
                                     View Details
                                 </a>
                             </div>
@@ -84,7 +84,7 @@
                             <div class="travel-country">INDONESIA</div>
                             <div class="travel-location">NUSA PENIDA, BALI</div>
                             <div class="travel-button mt-auto">
-                                <a href="details.html" class="btn btn-travel-details px-4">
+                                <a href="{{ route('detail') }}" class="btn btn-travel-details px-4">
                                     View Details
                                 </a>
                             </div>
@@ -95,7 +95,7 @@
                             <div class="travel-country">INDONESIA</div>
                             <div class="travel-location">KARIMUN ISLAND</div>
                             <div class="travel-button mt-auto">
-                                <a href="details.html" class="btn btn-travel-details px-4">
+                                <a href="{{ route('detail') }}" class="btn btn-travel-details px-4">
                                     View Details
                                 </a>
                             </div>

@@ -11,7 +11,9 @@
 
     <title>NOMADS Admin</title>
 
+    @stack('prepend-style')
     @include('includes.admin.style')
+    @stack('addon-style')
 
 </head>
 
@@ -72,6 +74,7 @@
     </div>
 
     @include('includes.admin.script')
+    @stack('addon-script')
 
 </body>
 

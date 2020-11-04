@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUsernameFieldToUsersTable extends Migration
+class AddSomeIdentityFieldToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,11 @@ class AddUsernameFieldToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('username');
+            $table->string('username')->after('email');
+            $table->string('nationality')->after('username');
+            $table->boolean('is_visa')->after('nationality');
+            $table->date('doe_passport')->after('is_visa');
+            $table->string('roles')->after('doe_passport');
         });
     }
 
@@ -26,7 +30,7 @@ class AddUsernameFieldToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('username');
+            $table->dropColumn(['username', 'nationality', 'is_visa', 'doe_passport', 'roles']);
         });
     }
 }

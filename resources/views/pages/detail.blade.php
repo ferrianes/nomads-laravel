@@ -29,42 +29,25 @@
                 <div class="row">
                     <div class="col-lg-8 pl-lg-0">
                         <div class="card card-details">
-                            <h1>Tanah Lot</h1>
+                            <h1>{{ $item->title }}</h1>
                             <p class="mb-2">
-                                Republic of Indonesia
+                                {{ $item->location }}
                             </p>
                             <div class="gallery">
                                 <div class="xzoom-container">
-                                    <img src="{{ url('frontend/images/popular-1.jpg') }}" class="xzoom" id="xzoom-default" xoriginal="{{ url('frontend/images/popular-1.jpg') }}">
+                                    <img src="{{ Storage::url($item->galleries->first()->images) }}" class="xzoom" id="xzoom-default" xoriginal="{{ Storage::url($item->galleries->first()->images) }}">
                                     <div class="xzoom-thumbs">
-                                        <a href="{{ url('frontend/images/popular-1.jpg') }}">
-                                            <img src="{{ url('frontend/images/popular-1.jpg') }}" class="xzoom-gallery" width="128" xpreview="{{ url('frontend/images/popular-1.jpg') }}">
-                                        </a>
-                                        <a href="{{ url('frontend/images/popular-1a.jpg') }}">
-                                            <img src="{{ url('frontend/images/popular-1a.jpg') }}" class="xzoom-gallery" width="128" xpreview="{{ url('frontend/images/popular-1a.jpg') }}">
-                                        </a>
-                                        <a href="{{ url('frontend/images/popular-1b.jpg') }}">
-                                            <img src="{{ url('frontend/images/popular-1b.jpg') }}" class="xzoom-gallery" width="128" xpreview="{{ url('frontend/images/popular-1b.jpg') }}">
-                                        </a>
-                                        <a href="{{ url('frontend/images/popular-1c.jpg') }}">
-                                            <img src="{{ url('frontend/images/popular-1c.jpg') }}" class="xzoom-gallery" width="128" xpreview="{{ url('frontend/images/popular-1c.jpg') }}">
-                                        </a>
-                                        <a href="{{ url('frontend/images/popular-1d.jpg') }}">
-                                            <img src="{{ url('frontend/images/popular-1d.jpg') }}" class="xzoom-gallery" width="128" xpreview="{{ url('frontend/images/popular-1d.jpg') }}">
-                                        </a>
+                                        @foreach ($item->galleries as $gallery)
+                                            <a href="{{ Storage::url($gallery->images) }}">
+                                                <img src="{{ Storage::url($gallery->images) }}" class="xzoom-gallery" width="128" xpreview="{{ Storage::url($gallery->images) }}">
+                                            </a>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                             <h2>Tentang Wisata</h2>
                             <p>
-                                Nusa Penida adalah sebuah pulau nusa bagian dari negara Republik Indonesia yang
-                                terletak di sebelah tenggara Bali yang dipisahkan oleh Selat Badung. Di dekat pulau ini
-                                terdapat juga pulau-pulau kecil lainnya yaitu Nusa Ceningan dan Nusa Lembongan.
-                            </p>
-                            <p>
-                                Perairan pulau Nusa Penida terkenal dengan kawasan selamnya di antaranya terdapat di
-                                Crystal Bay, Manta Point, Batu Meling, Batu Lumbung, Batu Abah, Toyapakeh dan Malibu
-                                Point.
+                                {!! $item->about !!}
                             </p>
                             <div class="features row">
                                 <div class="col-md-4">
@@ -72,7 +55,7 @@
                                         <img src="{{ url('frontend/images/ic_event.png') }}" alt="icon features" class="features-image">
                                         <div class="description">
                                             <h3>Featured Event</h3>
-                                            <p>Tari Kecak</p>
+                                            <p>{{ $item->featured_event }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +64,7 @@
                                         <img src="{{ url('frontend/images/ic_bahasa.png') }}" alt="icon features" class="features-image">
                                         <div class="description">
                                             <h3>Language</h3>
-                                            <p>Bahasa Indonesia</p>
+                                            <p>{{ $item->language }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +73,7 @@
                                         <img src="{{ url('frontend/images/ic_foods.png') }}" alt="icon features" class="features-image">
                                         <div class="description">
                                             <h3>Foods</h3>
-                                            <p>Local Foods</p>
+                                            <p>{{ $item->foods }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -111,27 +94,36 @@
                             <table class="trip-information">
                                 <tr>
                                     <th width="50%">Date of Departure</th>
-                                    <td width="50%" class="text-right">22 Nov, 2020</td>
+                                    <td width="50%" class="text-right">{{ \Carbon\Carbon::create($item->date_of_departure)->format('F n, Y') }}</td>
                                 </tr>
                                 <tr>
                                     <th width="50%">Duration</th>
-                                    <td width="50%" class="text-right">4D 3N</td>
+                                    <td width="50%" class="text-right">{{ $item->duration }}</td>
                                 </tr>
                                 <tr>
                                     <th width="50%">Type</th>
-                                    <td width="50%" class="text-right">Open Trip</td>
+                                    <td width="50%" class="text-right">{{ $item->type }}</td>
                                 </tr>
                                 <tr>
                                     <th width="50%">Price</th>
-                                    <td width="50%" class="text-right">$80,00 / person</td>
+                                    <td width="50%" class="text-right">${{ $item->price }},00 / person</td>
                                 </tr>
                             </table>
                         </div>
-                        <div class="join-container">
-                            <a href="{{ route('checkout') }}" class="btn btn-block btn-join-now mt-3 py-2">
-                                Join Now
-                            </a>
-                        </div>
+                        @auth
+                            <form action="" method="POST">
+                                <button class="btn btn-block btn-join-now mt-3 py-2" type="submit">
+                                    Join Now
+                                </button>
+                            </form>
+                        @endauth
+                        @guest
+                            <div class="join-container">
+                                <a href="{{ route('login') }}" class="btn btn-block btn-join-now mt-3 py-2">
+                                    Login or Register to Join
+                                </a>
+                            </div>
+                        @endguest
                     </div>
                 </div>
             </div>
@@ -145,6 +137,7 @@
         $(document).ready(function() {
             $('.xzoom, .xzoom-gallery').xzoom({
                 zoomWidth: 500,
+                position: 'inside',
                 title: false,
                 tint: '#333',
                 Xoffset: 15

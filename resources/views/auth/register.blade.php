@@ -65,13 +65,12 @@
                             <label for="nationality" class="col-md-4 col-form-label text-md-right">{{ __('Nationality') }}</label>
 
                             <div class="col-md-6">
-                                <select name="nationality" class="form-control" required>
-                                    <option selected>Choose Nationality</option>
+                                <select name="nationality" class="form-control @error('nationality') is-invalid @enderror" required>
+                                    <option disabled selected>Choose Nationality</option>
                                     @foreach ($nationalities as $nationality)
                                         <option value="{{ $nationality['id'] }}">{{ $nationality['name'] }}</option>
                                     @endforeach
                                 </select>
-                                <small class="text-muted">Please input your 2 digit nationality ID. Ex: JP for Japan</small>
 
                                 @error('nationality')
                                     <span class="invalid-feedback" role="alert">
@@ -87,8 +86,8 @@
                             <div class="col-md-6">
                                 <div class="custom-control custom-switch">
                                     <input type='hidden' value='0' name='is_visa'>
-                                    <input type="checkbox" class="custom-control-input @error('is_visa') is-invalid @enderror" id="is_visa" name="is_visa" autofocus value="1">
-                                    <label class="custom-control-label" for="is_visa" id="is_visa_label">Not Active</label>
+                                    <input type="checkbox" class="custom-control-input @error('is_visa') is-invalid @enderror" id="is_visa" name="is_visa" autofocus value="1" {{ old('is_visa') ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="is_visa" id="is_visa_label">{{ old('is_visa') ? 'Active' : 'Not Active' }}</label>
                                 </div>
 
                                 @error('is_visa')

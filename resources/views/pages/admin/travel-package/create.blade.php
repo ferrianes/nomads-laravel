@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 
+@push('prepend-style')
+    <!-- Libraries -->
+    <link rel="stylesheet" href="{{ url('frontend/libraries/gijgo/css/gijgo.min.css') }}">
+@endpush
+
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -49,7 +54,7 @@
                     </div>
                     <div class="form-group">
                         <label for="departure_date">Departure Date</label>
-                        <input type="date" class="form-control" name="departure_date" placeholder="Departure Date" value="{{ old('departure_date') }}" id="departure_date">
+                        <input type="text" class="form-control datepicker" name="departure_date" placeholder="Departure Date" value="{{ old('departure_date') }}" id="departure_date" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="duration">Duration</label>
@@ -75,3 +80,20 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <!-- Libraries -->
+    <script src="{{ url('frontend/libraries/gijgo/js/gijgo.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.datepicker').datepicker({
+                uiLibrary: 'bootstrap4',
+                format: 'mmmm dd, yyyy',
+                icons: {
+                    rightIcon: '<img src="{{ url('frontend/images/ic_date.png') }}">'
+                }
+            })
+        });
+    </script>
+@endpush

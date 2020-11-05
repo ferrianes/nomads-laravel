@@ -34,7 +34,7 @@
                                     <td>{{ $item->title }}</td>
                                     <td>{{ $item->location }}</td>
                                     <td>{{ $item->type }}</td>
-                                    <td>{{ $item->departure_date }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->departure_date)->isoFormat('MMMM DD, YYYY') }}</td>
                                     <td>{{ $item->duration }}</td>
                                     <td>
                                         <a href="{{ route('travel-package.edit', $item->id) }}" class="btn btn-info">

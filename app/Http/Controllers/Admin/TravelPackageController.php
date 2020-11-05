@@ -43,6 +43,7 @@ class TravelPackageController extends Controller
     public function store(TravelPackageRequest $request)
     {
         $data = $request->all();
+        $data['departure_date'] = \Carbon\Carbon::parse($data['departure_date'])->toDate();
         $data['slug'] = Str::slug($request->title);
 
         TravelPackage::create($data);
@@ -85,6 +86,7 @@ class TravelPackageController extends Controller
     public function update(TravelPackageRequest $request, $id)
     {
         $data = $request->all();
+        $data['departure_date'] = \Carbon\Carbon::parse($data['departure_date'])->toDate();
         $data['slug'] = Str::slug($request->title);
 
         $item = TravelPackage::findOrFail($id);

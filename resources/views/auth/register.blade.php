@@ -102,10 +102,10 @@
                             <label for="doe_passport" class="col-md-4 col-form-label text-md-right">{{ __('Date of End Passport') }}</label>
 
                             <div class="col-md-6">
-                                <input id="doe_passport" type="text" class="form-control datepicker @error('doe_passport') is-invalid @enderror" name="doe_passport" value="{{ old('doe_passport') }}" required autocomplete="off" maxlength="2" autofocus>
+                                <input id="doe_passport" type="text" class="form-control bg-white datepicker @error('doe_passport') is-invalid @enderror" name="doe_passport" value="{{ old('doe_passport') }}" autocomplete="off" autofocus readonly>
 
                                 @error('doe_passport')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback d-block" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror

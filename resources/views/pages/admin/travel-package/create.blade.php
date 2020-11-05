@@ -54,7 +54,7 @@
                     </div>
                     <div class="form-group">
                         <label for="departure_date">Departure Date</label>
-                        <input type="text" class="form-control datepicker" name="departure_date" placeholder="Departure Date" value="{{ old('departure_date') }}" id="departure_date" autocomplete="off">
+                        <input type="text" class="form-control datepicker bg-white" name="departure_date" placeholder="Departure Date" value="{{ old('departure_date') }}" id="departure_date" autocomplete="off" readonly>
                     </div>
                     <div class="form-group">
                         <label for="duration">Duration</label>

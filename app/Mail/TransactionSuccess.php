@@ -11,14 +11,16 @@ class TransactionSuccess extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $data;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +30,9 @@ class TransactionSuccess extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this
+        ->from('no-reply@nomads.id', 'Nomads ID')
+        ->subject('Tiket NOMADS Kamu')
+        ->view('email.transaction-success');
     }
 }

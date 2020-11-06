@@ -1,0 +1,104 @@
+<mjml>
+    <mj-body background-color="#E4E6EB">
+        <mj-section background-color="#FFFFFF" padding-bottom="0px" padding-top="0px" border-bottom="1px dashed #eee">
+            <mj-column width="100%" vertical-align="top">
+                <mj-image src="../frontend/images/logo_nomads.png" alt="" align="center" border="none" width="150px" padding-left="0px" padding-right="0px" padding-bottom="25px" padding-top="30px" />
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#FFFFFF" padding-bottom="0px" padding-top="0px">
+            <mj-column width="100%" vertical-align="top">
+                <mj-text align="center"
+                color="#071c4d" font-size="30px" font-weight="bold" font-family="Playfair Display, Times New Roman, serif"
+                padding-left="25px"
+                padding-right="25px"
+                padding-bottom="30px"
+                padding-top="30px">
+                    Don't Forget Your E-Ticket!
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#FFFFFF" padding-bottom="0px" padding-top="0px">
+            <mj-column width="100%" vertical-align="top">
+                <mj-image src="../frontend/images/popular-1.jpg" alt="" align="center" border="none" width="550px" padding-left="0px" padding-right="0px" padding-bottom="0px" padding-top="0px" />
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#FFFFFF" padding-bottom="0px" padding-top="0px">
+            <mj-column width="100%" vertical-align="middle" border-bottom="1px dashed #eee" padding-bottom="30px">
+                <mj-text align="left"
+                color="#071c4d" font-size="18px" line-height="20px" font-family="Assistant, Arial, sans-serif"
+                padding-left="25px"
+                padding-right="25px">
+                    Hi, Ferrian
+                    <br>
+                    Tiket digital kamu sudah berhasil dicetak.
+                    <br>
+                    Booking ID <b>#27272727<b>
+                </mj-text>
+                <mj-table
+                color="#071c4d" font-size="18px" line-height="28px" font-family="Assistant, Arial, sans-serif"
+                padding-left="25px"
+                padding-right="25px">
+                    <tr>
+                        <td colspan="3">Members</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ferrian</b></td>
+                        <td style="text-align: right;">Japan, JP</td>
+                    </tr>
+                    <tr>
+                        <td><b>Bambang</b></td>
+                        <td style="text-align: right;">Indonesia, ID</td>
+                    </tr>
+                </mj-table>
+                <mj-table
+                color="#071c4d" font-size="18px" line-height="28px" font-family="Assistant, Arial, sans-serif"
+                padding-left="25px"
+                padding-right="25px">
+                    <tr>
+                        <td colspan="3">Travel Details</td>
+                    </tr>
+                    <tr>
+                        <td><b>Departure</b></td>
+                        <td style="text-align: right;">Tanah Lot, Bali</td>
+                    </tr>
+                    <tr>
+                        <td><b>Date and Time</b></td>
+                        <td style="text-align: right;">Thu, 20 Jan, 2021</td>
+                    </tr>
+                </mj-table>
+
+                <mj-button align="center" font-size="18px" background-color="#ff9e64" border-radius="10px" color="#fff" font-family="Assistant, Helvetica, Arial, sans serif">
+                    Check Detail
+                </mj-button>
+            </mj-column>
+        </mj-section>
+        <mj-section background-color="#fff" padding-bottom="20px" padding-top="0px">
+            <mj-column>
+                <mj-table>
+                    <tr>
+                        <td colspan="2" style="font-size: 18px; padding-left: 10px; color: #071c4d; mar">
+                            Butuh Bantuan?
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50px;">
+                            <img src="../frontend/images/ic_bahasa.png" width="50px">
+                        </td>
+                        <td style="font-size: 18px; padding-left: 10px;color: #071c4d">
+                            support@nomads.id
+                            <br>
+                            0812-9162-0221
+                        </td>
+                    </tr>
+                </mj-table>
+            </mj-column>
+        </mj-section>
+        <mj-section padding-bottom="30px" padding-top="3px">
+            <mj-column>
+                <mj-text align="center" color="#888893" font-family="Assistant, Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="0px" padding-top="30px">
+                    2020 Nomads Copyright All Rights Reserved
+                </mj-text>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

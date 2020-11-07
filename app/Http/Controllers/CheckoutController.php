@@ -14,6 +14,9 @@ use App\TransactionDetail;
 use App\TravelPackage;
 use App\User;
 
+use Midtrans\Config;
+use Midtrans\Snap;
+
 class CheckoutController extends Controller
 {
     public function index(Request $request, $id)
@@ -112,11 +115,47 @@ class CheckoutController extends Controller
 
         $transaction->save();
 
-        // Kirim email tiket ke user
-        Mail::to($transaction->user)->send(
-            new TransactionSuccess($transaction)
-        );
+        // Konfigurasi Midtrans
+        // Set your Merchant Server Key
+        Config::$serverKey = config('midtrans.serverKey');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        Config::$isProduction = config('midtrans.isProduction');
+        // Set sanitization on (default)
+        Config::$isSanitized = config('midtrans.isSanitized');
+        // Set 3DS transaction for credit card to true
+        Config::$is3ds = config('midtrans.is3ds');
 
-        return view('pages.success');
+        // Buat konfig untuk dikirim ke midtrans
+        $midtrans_params = [
+            'transaction_details' => [
+                'order_id' => 'TEST' . $transaction->id,
+                'gross_amount' => (int) $transaction->transaction_total
+            ],
+            'customer_details' => [
+                'first_name' => $transaction->user->name,
+                'email' => $transaction->user->email
+            ],
+            'enable_payments' => ['gopay'],
+            'vtweb' => []
+        ];
+
+        // Kirim ke midtrans
+        try {
+            // Get Snap Payment Page URL
+            $paymentUrl = Snap::createTransaction($midtrans_params)->redirect_url;
+            
+            // Redirect to Snap Payment Page
+            header('Location: ' . $paymentUrl);
+        }
+            catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        // Kirim email tiket ke user
+        // Mail::to($transaction->user)->send(
+        //     new TransactionSuccess($transaction)
+        // );
+
+        // return view('pages.success');
     }
 }

@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
@@ -39,7 +40,7 @@
                                         <a href="{{ route('gallery.edit', $item->id) }}" class="btn btn-info">
                                             <i class="fa fa-pencil-alt"></i>
                                         </a>
-                                        <form action="{{ route('gallery.destroy', $item->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('gallery.destroy', $item->id) }}" method="POST" class="d-inline delete">
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-danger">
@@ -64,3 +65,39 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <!-- Library Sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
+    <script>
+        const btnDeletes = document.querySelectorAll('.btn-danger')
+        btnDeletes.forEach(btnDelete => {
+            btnDelete.addEventListener('click', function (e) {
+                e.preventDefault();
+                let form = this.parentElement
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You will move this item to trash",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit()
+                    }
+                })
+            })
+        })
+
+        @if (session('status') && session('status') === 'success')
+            Swal.fire(
+                "Deleted!",
+                "Your item has been moved to trash.",
+                "success"
+            )
+        @endif
+    </script>
+@endpush

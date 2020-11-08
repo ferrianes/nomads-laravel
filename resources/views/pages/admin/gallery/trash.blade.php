@@ -54,3 +54,39 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <!-- Library Sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        const btnDeletes = document.querySelectorAll('.btn-danger')
+        btnDeletes.forEach(btnDelete => {
+            btnDelete.addEventListener('click', function (e) {
+                e.preventDefault();
+                const urlToRedirect = e.currentTarget.getAttribute('href')
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = urlToRedirect
+                    }
+                })
+            })
+        })
+
+        @if (session('status') && session('status') === 'success')
+            Swal.fire(
+                "Deleted!",
+                "Your item has been deleted.",
+                "success"
+            )
+        @endif
+    </script>
+@endpush

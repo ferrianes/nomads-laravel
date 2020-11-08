@@ -114,7 +114,7 @@ class GalleryController extends Controller
         );
 
         $item = Gallery::findOrFail($id);
-        
+
         Storage::disk('public')->delete($item->images);
 
         $item->update($data);
@@ -147,7 +147,7 @@ class GalleryController extends Controller
         $item = Gallery::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('gallery.index');
+        return redirect()->route('gallery.index')->with('status', 'success');
     }
 
     /**
@@ -162,6 +162,6 @@ class GalleryController extends Controller
         Storage::disk('public')->delete($item->images);
         $item->forceDelete();
 
-        return redirect()->route('gallery-trash');
+        return redirect()->route('gallery-trash')->with('status', 'success');
     }
 }

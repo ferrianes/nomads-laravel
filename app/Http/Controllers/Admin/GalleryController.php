@@ -27,6 +27,22 @@ class GalleryController extends Controller
     }
 
     /**
+     * Display a soft deletes listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trash()
+    {
+        $items = Gallery::onlyTrashed()
+                    ->with(['travel_package'])
+                    ->get();
+
+        return view('pages.admin.gallery.trash', [
+            'items' => $items
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -97,13 +113,27 @@ class GalleryController extends Controller
             'assets/gallery', 'public'
         );
 
-        // Storage::disk('public')->delete($data['old_image']);
-
         $item = Gallery::findOrFail($id);
+        
+        Storage::disk('public')->delete($item->images);
 
         $item->update($data);
 
         return redirect()->route('gallery.index');
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        $item = Gallery::onlyTrashed()->findOrFail($id);
+        $item->restore();
+
+        return redirect()->route('gallery-trash');
     }
 
     /**
@@ -118,5 +148,20 @@ class GalleryController extends Controller
         $item->delete();
 
         return redirect()->route('gallery.index');
+    }
+
+    /**
+     * Force Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kill($id)
+    {
+        $item = Gallery::onlyTrashed()->findOrFail($id);
+        Storage::disk('public')->delete($item->images);
+        $item->forceDelete();
+
+        return redirect()->route('gallery-trash');
     }
 }

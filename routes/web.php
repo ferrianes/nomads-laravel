@@ -45,7 +45,15 @@ Route::prefix('admin')
             ->name('dashboard');
 
         Route::resource('travel-package', 'TravelPackageController');
+
+        Route::get('gallery/trash', 'GalleryController@trash')
+            ->name('gallery-trash');
+        Route::get('gallery/restore/{id}', 'GalleryController@restore')
+            ->name('gallery-restore');
+        Route::get('gallery/kill/{id}', 'GalleryController@kill')
+            ->name('gallery-kill');
         Route::resource('gallery', 'GalleryController');
+
         Route::resource('transaction', 'TransactionController');
     });
 

@@ -34,7 +34,6 @@
                         <div class="custom-file">
                             <input type="file" name="images" class="custom-file-input" id="customFile">
                             <label class="custom-file-label" for="customFile">Choose Image</label>
-                            <input type="hidden" name="old_image" value="{{ $item->images }}">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">

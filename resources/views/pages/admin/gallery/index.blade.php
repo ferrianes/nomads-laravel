@@ -8,14 +8,34 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Gallery</h1>
-            <a href="{{ route('gallery-trash') }}" class="btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-trash fa-sm text-white-50"></i> Recycle Bin Gallery
-            </a>
-            <a href="{{ route('gallery.create') }}" class="btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Gallery
-            </a>
+        <div class="d-flex align-items-center justify-content-center mb-3 flex-wrap">
+            <div class="mr-auto mb-3 mb-md-0">
+                <h1 class="h3 mb-0 text-gray-800">Gallery</h1>
+            </div>
+            <div class="mb-3 mb-md-0">
+                <form action="{{ route('gallery.index') }}" method="GET" class="form-inline">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Show</span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Input limit..." name="limit" autocomplete="off" min="1" value="{{ $limit ?? '' }}">
+                        <input type="text" class="form-control" placeholder="Search item..." name="s" autocomplete="off" value="{{ $search ?? '' }}">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fas fa-fw fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="mx-md-2 mb-3 mb-md-0">
+                <a href="{{ route('gallery-trash') }}" class="btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-trash fa-sm text-white-50"></i> Recycle Bin Gallery
+                </a>
+            </div>
+            <div class="">
+                <a href="{{ route('gallery.create') }}" class="btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Gallery
+                </a>
+            </div>
         </div>
 
         <div class="row">
@@ -58,6 +78,7 @@
                             @endforelse
                         </tbody>
                     </table>
+                    {{ $items->links() }}
                 </div>
             </div>
         </div>

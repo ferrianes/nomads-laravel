@@ -17,12 +17,23 @@ class GalleryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Gallery::with(['travel_package'])->get();
+        $search = $request->s;
+        $limit = $request->limit;
+
+        $items = Gallery::with(['travel_package'])
+        ->whereHas('travel_package', function ($query) use ($search) {
+            $query->where('title', 'like', "%{$search}%");   
+        })->paginate($limit ?? 5);
+
+        // append link to pagination (?s=input?page=2)
+        $items->appends($request->only('s', 'limit'));
 
         return view('pages.admin.gallery.index', [
-            'items' => $items
+            'items' => $items,
+            'search' => $search,
+            'limit' => $limit
         ]);
     }
 

@@ -47,6 +47,7 @@ Route::prefix('admin')
 
         Route::prefix('gallery')
             ->group(function () {
+
                 Route::get('trash', 'GalleryController@trash')
                     ->name('gallery-trash');
 

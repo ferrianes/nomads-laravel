@@ -13,28 +13,28 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item {{ (Request::segment(1) === 'admin' && Request::segment(2) === NULL) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ (Request::segment(1) === 'admin' && Request::segment(2) === 'travel-package') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('travel-package.index') }}">
             <i class="fas fa-fw fa-hotel"></i>
             <span>Paket Travel</span>
         </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ (Request::segment(1) === 'admin' && Request::segment(2) === 'gallery') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('gallery.index') }}">
             <i class="fas fa-fw fa-images"></i>
             <span>Galeri Travel</span>
         </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ (Request::segment(1) === 'admin' && Request::segment(2) === 'transaction') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('transaction.index') }}">
             <i class="fas fa-fw fa-dollar-sign"></i>
             <span>Transaksi</span>

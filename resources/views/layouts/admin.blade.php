@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>NOMADS Admin</title>
+    <title>NOMADS Admin | @yield('title')</title>
 
     @stack('prepend-style')
     @include('includes.admin.style')

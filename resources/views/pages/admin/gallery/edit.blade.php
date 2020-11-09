@@ -11,7 +11,7 @@
 
         @if ($errors->any())
             <div class="alert alert-danger">
-                <ul>
+                <ul class="mb-0">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -48,3 +48,21 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <script>
+        $('.custom-file-input').on('change', function() {
+            let fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+
+        @if ($errors->any())
+            Swal.fire(
+                "Failed!",
+                "Your item has been failed to edit.",
+                "error"
+            )
+        @endif
+    </script>
+@endpush
+

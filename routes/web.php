@@ -17,25 +17,24 @@ Route::get('/', 'HomeController@index')
 Route::get('/detail/{slug}', 'DetailController@index')
     ->name('detail');
 
-Route::post('/checkout/{id}', 'CheckoutController@process')
-    ->name('checkout-process')
-    ->middleware('auth', 'verified');
-
-Route::get('/checkout/{id}', 'CheckoutController@index')
-    ->name('checkout')
-    ->middleware('auth', 'verified');
-
-Route::post('/checkout/create/{detail_id}', 'CheckoutController@create')
-    ->name('checkout-create')
-    ->middleware('auth', 'verified');
-
-Route::get('/checkout/remove/{detail_id}', 'CheckoutController@remove')
-    ->name('checkout-remove')
-    ->middleware('auth', 'verified');
-
-Route::get('/checkout/confirm/{id}', 'CheckoutController@success')
-    ->name('checkout-success')
-    ->middleware('auth', 'verified');
+Route::prefix('checkout')
+    ->middleware(['auth', 'verified'])
+    ->group(function() {
+        Route::post('{id}', 'CheckoutController@process')
+            ->name('checkout-process');
+        
+        Route::get('{id}', 'CheckoutController@index')
+            ->name('checkout');
+        
+        Route::post('create/{detail_id}', 'CheckoutController@create')
+            ->name('checkout-create');
+        
+        Route::get('remove/{detail_id}', 'CheckoutController@remove')
+            ->name('checkout-remove');
+        
+        Route::get('confirm/{id}', 'CheckoutController@success')
+            ->name('checkout-success');
+    });
 
 Route::prefix('admin')
     ->namespace('Admin')
@@ -46,12 +45,17 @@ Route::prefix('admin')
 
         Route::resource('travel-package', 'TravelPackageController');
 
-        Route::get('gallery/trash', 'GalleryController@trash')
-            ->name('gallery-trash');
-        Route::get('gallery/restore/{id}', 'GalleryController@restore')
-            ->name('gallery-restore');
-        Route::get('gallery/kill/{id}', 'GalleryController@kill')
-            ->name('gallery-kill');
+        Route::prefix('gallery')
+            ->group(function () {
+                Route::get('trash', 'GalleryController@trash')
+                    ->name('gallery-trash');
+
+                Route::get('restore/{id}', 'GalleryController@restore')
+                    ->name('gallery-restore');
+                    
+                Route::get('kill/{id}', 'GalleryController@kill')
+                    ->name('gallery-kill');
+            });
         Route::resource('gallery', 'GalleryController');
 
         Route::resource('transaction', 'TransactionController');

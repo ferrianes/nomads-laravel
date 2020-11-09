@@ -56,9 +56,6 @@
 @endsection
 
 @push('addon-script')
-    <!-- Library Sweetalert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
     <script>
         const btnDeletes = document.querySelectorAll('.btn-danger')
         btnDeletes.forEach(btnDelete => {
@@ -81,12 +78,23 @@
             })
         })
 
-        @if (session('status') && session('status') === 'success')
-            Swal.fire(
-                "Deleted!",
-                "Your item has been deleted.",
-                "success"
-            )
-        @endif
+        @switch(session('status'))
+            @case('delete-success')
+                Swal.fire(
+                    "Deleted!",
+                    "Your item has been moved to trash.",
+                    "success"
+                )
+                @break
+            @case('restore-success')
+                Swal.fire(
+                    "Restored!",
+                    "Your item has been restored.",
+                    "success"
+                )
+                @break
+            @default
+                
+        @endswitch
     </script>
 @endpush

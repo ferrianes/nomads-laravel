@@ -11,7 +11,7 @@
 
         @if ($errors->any())
             <div class="alert alert-danger">
-                <ul>
+                <ul class="mb-0">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -60,5 +60,13 @@
             let fileName = $(this).val().split('\\').pop();
             $(this).next('.custom-file-label').addClass("selected").html(fileName);
         });
+
+        @if ($errors->any())
+            Swal.fire(
+                "Failed!",
+                "Your item has been failed to add.",
+                "error"
+            )
+        @endif
     </script>
 @endpush

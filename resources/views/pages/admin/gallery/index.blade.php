@@ -67,15 +67,12 @@
 @endsection
 
 @push('addon-script')
-    <!-- Library Sweetalert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    
     <script>
         const btnDeletes = document.querySelectorAll('.btn-danger')
         btnDeletes.forEach(btnDelete => {
             btnDelete.addEventListener('click', function (e) {
                 e.preventDefault();
-                let form = this.parentElement
+                const form = this.parentElement
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You will move this item to trash",
@@ -92,12 +89,30 @@
             })
         })
 
-        @if (session('status') && session('status') === 'success')
-            Swal.fire(
-                "Deleted!",
-                "Your item has been moved to trash.",
-                "success"
-            )
-        @endif
+        @switch(session('status'))
+            @case('delete-success')
+                Swal.fire(
+                    "Deleted!",
+                    "Your item has been moved to trash.",
+                    "success"
+                )
+                @break
+            @case('edit-success')
+                Swal.fire(
+                    "Edited!",
+                    "Your item has been edited.",
+                    "success"
+                )
+                @break
+            @case('add-success')
+                Swal.fire(
+                    "Added!",
+                    "Your item has been added.",
+                    "success"
+                )
+                @break
+            @default
+                
+        @endswitch
     </script>
 @endpush

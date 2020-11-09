@@ -70,7 +70,7 @@ class GalleryController extends Controller
         );
 
         Gallery::create($data);
-        return redirect()->route('gallery.index');
+        return redirect()->route('gallery.index')->with('status', 'add-success');
     }
 
     /**
@@ -119,7 +119,7 @@ class GalleryController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('gallery.index');
+        return redirect()->route('gallery.index')->with('status', 'edit-success');
     }
 
     /**
@@ -133,7 +133,7 @@ class GalleryController extends Controller
         $item = Gallery::onlyTrashed()->findOrFail($id);
         $item->restore();
 
-        return redirect()->route('gallery-trash');
+        return redirect()->route('gallery-trash')->with('status', 'restore-success');
     }
 
     /**
@@ -147,7 +147,7 @@ class GalleryController extends Controller
         $item = Gallery::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('gallery.index')->with('status', 'success');
+        return redirect()->route('gallery.index')->with('status', 'delete-success');
     }
 
     /**
@@ -162,6 +162,6 @@ class GalleryController extends Controller
         Storage::disk('public')->delete($item->images);
         $item->forceDelete();
 
-        return redirect()->route('gallery-trash')->with('status', 'success');
+        return redirect()->route('gallery-trash')->with('status', 'delete-success');
     }
 }

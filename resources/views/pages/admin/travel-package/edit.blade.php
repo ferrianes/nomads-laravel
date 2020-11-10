@@ -96,5 +96,13 @@
                 }
             })
         });
+
+        @if ($errors->any())
+            Swal.fire(
+                "Failed!",
+                "Your item has been failed to edit.",
+                "error"
+            )
+        @endif
     </script>
 @endpush

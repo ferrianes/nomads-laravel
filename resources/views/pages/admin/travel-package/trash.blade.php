@@ -5,34 +5,8 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <div class="d-flex align-items-center justify-content-center mb-3 flex-wrap">
-            <div class="mr-auto mb-3 mb-md-2">
-                <h1 class="h3 mb-0 text-gray-800">Paket Travel</h1>
-            </div>
-            <div class="mb-3 mb-md-2">
-                <form action="{{ route('travel-package.index') }}" method="GET" class="form-inline">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Show</span>
-                        </div>
-                        <input type="number" class="form-control" placeholder="Input limit..." name="limit" autocomplete="off" min="1" value="{{ $limit ?? '' }}">
-                        <input type="text" class="form-control" placeholder="Search item..." name="s" autocomplete="off" value="{{ $search ?? '' }}">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fas fa-fw fa-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="mx-md-2 mb-3 mb-md-2">
-                <a href="{{ route('travel-package-trash') }}" class="btn btn-sm btn-primary shadow-sm">
-                    <i class="fas fa-trash fa-sm text-white-50"></i> Recycle Bin Paket Travel
-                </a>
-            </div>
-            <div class="mb-md-2">
-                <a href="{{ route('travel-package.create') }}" class="btn btn-sm btn-primary shadow-sm">
-                    <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Paket Travel
-                </a>
-            </div>
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Trashed Paket Travel</h1>
         </div>
 
         <div class="row">
@@ -60,16 +34,12 @@
                                     <td>{{ \Carbon\Carbon::parse($item->departure_date)->isoFormat('MMMM DD, YYYY') }}</td>
                                     <td>{{ $item->duration }}</td>
                                     <td>
-                                        <a href="{{ route('travel-package.edit', $item->id) }}" class="btn btn-info">
-                                            <i class="fa fa-pencil-alt"></i>
+                                        <a href="{{ route('travel-package-restore', $item->id) }}" class="btn btn-info">
+                                            <i class="fa fa-trash-restore"></i>
                                         </a>
-                                        <form action="{{ route('travel-package.destroy', $item->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('delete')
-                                            <button class="btn btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        <a href="{{ route('travel-package-kill', $item->id) }}" class="btn btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
@@ -79,7 +49,6 @@
                             @endforelse
                         </tbody>
                     </table>
-                    {{ $items->links() }}
                 </div>
             </div>
         </div>
@@ -96,10 +65,10 @@
         btnDeletes.forEach(btnDelete => {
             btnDelete.addEventListener('click', function (e) {
                 e.preventDefault();
-                const form = this.parentElement
+                const urlToRedirect = e.currentTarget.getAttribute('href')
                 Swal.fire({
                     title: 'Are you sure?',
-                    text: "You will move this item to trash",
+                    text: "You won't be able to revert this!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -107,7 +76,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        form.submit()
+                        window.location.href = urlToRedirect
                     }
                 })
             })
@@ -121,17 +90,10 @@
                     "success"
                 )
                 @break
-            @case('edit-success')
+            @case('restore-success')
                 Swal.fire(
-                    "Edited!",
-                    "Your item has been edited.",
-                    "success"
-                )
-                @break
-            @case('add-success')
-                Swal.fire(
-                    "Added!",
-                    "Your item has been added.",
+                    "Restored!",
+                    "Your item has been restored.",
                     "success"
                 )
                 @break

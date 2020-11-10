@@ -9,10 +9,10 @@
 
         <!-- Page Heading -->
         <div class="d-flex align-items-center justify-content-center mb-3 flex-wrap">
-            <div class="mr-auto mb-3 mb-md-0">
+            <div class="mr-auto mb-3 mb-md-2">
                 <h1 class="h3 mb-0 text-gray-800">Gallery</h1>
             </div>
-            <div class="mb-3 mb-md-0">
+            <div class="mb-3 mb-md-2">
                 <form action="{{ route('gallery.index') }}" method="GET" class="form-inline">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -26,12 +26,12 @@
                     </div>
                 </form>
             </div>
-            <div class="mx-md-2 mb-3 mb-md-0">
+            <div class="mx-md-2 mb-3 mb-md-2">
                 <a href="{{ route('gallery-trash') }}" class="btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-trash fa-sm text-white-50"></i> Recycle Bin Gallery
                 </a>
             </div>
-            <div class="">
+            <div class="mb-md-2">
                 <a href="{{ route('gallery.create') }}" class="btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Gallery
                 </a>

@@ -43,6 +43,18 @@ Route::prefix('admin')
         Route::get('/', 'DashboardController@index')
             ->name('dashboard');
 
+        Route::prefix('travel-package')
+            ->group(function () {
+
+                Route::get('trash', 'TravelPackageController@trash')
+                    ->name('travel-package-trash');
+
+                Route::get('restore/{id}', 'TravelPackageController@restore')
+                    ->name('travel-package-restore');
+                    
+                Route::get('kill/{id}', 'TravelPackageController@kill')
+                    ->name('travel-package-kill');
+            });
         Route::resource('travel-package', 'TravelPackageController');
 
         Route::prefix('gallery')

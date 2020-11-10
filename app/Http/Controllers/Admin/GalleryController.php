@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class GalleryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing and search of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,9 +23,10 @@ class GalleryController extends Controller
         $limit = $request->limit;
 
         $items = Gallery::with(['travel_package'])
-        ->whereHas('travel_package', function ($query) use ($search) {
-            $query->where('title', 'like', "%{$search}%");   
-        })->paginate($limit ?? 5);
+            ->whereHas('travel_package', function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%");   
+            })
+            ->paginate($limit ?? 5);
 
         // append link to pagination (?s=input?page=2)
         $items->appends($request->only('s', 'limit'));

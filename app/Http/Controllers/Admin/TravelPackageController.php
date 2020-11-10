@@ -15,11 +15,43 @@ class TravelPackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = TravelPackage::all();
+        $search = $request->s;
+        $limit = $request->limit;
+
+        $items = TravelPackage::where('title', 'like', "%{$search}%")
+            ->orWhere('location', 'like', "%{$search}%")
+            ->orWhere('about', 'like', "%{$search}%")
+            ->orWhere('featured_event', 'like', "%{$search}%")
+            ->orWhere('language', 'like', "%{$search}%")
+            ->orWhere('foods', 'like', "%{$search}%")
+            ->orWhere('departure_date', 'like', "%{$search}%")
+            ->orWhere('duration', 'like', "%{$search}%")
+            ->orWhere('type', 'like', "%{$search}%")
+            ->orWhere('price', 'like', "%{$search}%")
+            ->paginate($limit ?? 5);
+
+        // append link to pagination (?s=input?page=2)
+        $items->appends($request->only('s', 'limit'));
 
         return view('pages.admin.travel-package.index', [
+            'items' => $items,
+            'search' => $search,
+            'limit' => $limit
+        ]);
+    }
+
+    /**
+     * Display a soft deletes listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trash()
+    {
+        $items = TravelPackage::onlyTrashed()->get();
+
+        return view('pages.admin.travel-package.trash', [
             'items' => $items
         ]);
     }
@@ -47,7 +79,7 @@ class TravelPackageController extends Controller
         $data['slug'] = Str::slug($request->title);
 
         TravelPackage::create($data);
-        return redirect()->route('travel-package.index');
+        return redirect()->route('travel-package.index')->with('status', 'add-success');
     }
 
     /**
@@ -93,7 +125,21 @@ class TravelPackageController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('travel-package.index');
+        return redirect()->route('travel-package.index')->with('status', 'edit-success');
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        $item = TravelPackage::onlyTrashed()->findOrFail($id);
+        $item->restore();
+
+        return redirect()->route('travel-package-trash')->with('status', 'restore-success');
     }
 
     /**
@@ -107,6 +153,21 @@ class TravelPackageController extends Controller
         $item = TravelPackage::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('travel-package.index');
+        return redirect()->route('travel-package.index')->with('status', 'delete-success');
+    }
+
+    /**
+     * Force Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kill($id)
+    {
+        $item = TravelPackage::onlyTrashed()->findOrFail($id);
+
+        $item->forceDelete();
+
+        return redirect()->route('travel-package-trash')->with('status', 'delete-success');
     }
 }

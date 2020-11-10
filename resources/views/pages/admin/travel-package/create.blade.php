@@ -94,6 +94,14 @@
                     rightIcon: '<img src="{{ url('frontend/images/ic_date.png') }}">'
                 }
             })
-        });
+        })
+
+        @if ($errors->any())
+            Swal.fire(
+                "Failed!",
+                "Your item has been failed to add.",
+                "error"
+            )
+        @endif
     </script>
 @endpush
